@@ -95,16 +95,15 @@ def create_quiz_page(phone):
 
 # ---------------- CADET ----------------
 
-@app.route("/cadet/login", methods=["GET"])
-def cadet_login_page():
-    return render_template("cadet_login.html")
-
-@app.route("/cadet/login", methods=["POST"])
+@app.route("/cadet/login", methods=["GET", "POST"])
 def cadet_login():
-    phone = request.form.get("phone")
-    if phone in data["cadets"]:
-        return redirect(url_for("cadet_dashboard", phone=phone))
-    return redirect(url_for("cadet_register_page"))
+    if request.method == "POST":
+        phone = request.form.get("phone")
+        if phone in data["cadets"]:
+            return redirect(url_for("cadet_dashboard", phone=phone))
+        return redirect(url_for("cadet_register_page"))
+
+    return render_template("cadet_login.html")
 
 @app.route("/cadet/register", methods=["GET", "POST"])
 def cadet_register_page():
@@ -127,8 +126,17 @@ def cadet_dashboard(phone):
 def cadet_quizzes(phone):
     cadet = data["cadets"].get(phone)
     attempted = cadet["scores"].keys()
-    available = [q for q in data["quizzes"] if q["quiz_name"] not in attempted]
-    return render_template("cadet_quizzes.html", quizzes=available, cadet_phone=phone)
+
+    available = [
+        q for q in data["quizzes"]
+        if q["quiz_name"] not in attempted
+    ]
+
+    return render_template(
+        "cadet_quizzes.html",
+        quizzes=available,
+        cadet_phone=phone
+    )
 
 @app.route("/cadet/attempt/<phone>/<quiz_name>", methods=["GET", "POST"])
 def attempt_quiz(phone, quiz_name):
