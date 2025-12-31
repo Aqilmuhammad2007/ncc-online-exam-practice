@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attempt Quiz</title>
+</head>
+<body>
+    <h2>{{ quiz.quiz_name }}</h2>
+
+    <form method="post">
+        {% for q in quiz.questions %}
+            <p>{{ loop.index }}. {{ q }}</p>
+            <input type="text" name="a{{ loop.index }}" required><br><br>
+        {% endfor %}
+
+        <button type="submit">Submit Quiz</button>
+    </form>
+</body>
+</html>

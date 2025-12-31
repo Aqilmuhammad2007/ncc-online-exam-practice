@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Quizzes</title>
+</head>
+<body>
+    <h2>Available Quizzes</h2>
+
+    {% if quizzes %}
+        <ul>
+        {% for quiz in quizzes %}
+            <li>
+                {{ quiz.quiz_name }}
+                <a href="/cadet/attempt/{{ cadet_phone }}/{{ quiz.quiz_name }}">
+                    Attempt
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No new quizzes available.</p>
+    {% endif %}
+
+    <a href="/cadet/dashboard/{{ cadet_phone }}">Back</a>
+</body>
+</html>

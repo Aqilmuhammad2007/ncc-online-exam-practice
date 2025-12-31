@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadet Registration</title>
+</head>
+<body>
+    <h2>Register Cadet</h2>
+
+    <form method="post">
+        <label>Phone Number:</label><br>
+        <input type="text" name="phone" required><br><br>
+
+        <label>Cadet Name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Select Institution:</label><br>
+        <select name="college" required>
+            {% for inst in institutions %}
+                <option value="{{ inst.name }}">{{ inst.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

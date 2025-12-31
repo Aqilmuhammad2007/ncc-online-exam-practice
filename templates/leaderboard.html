@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard</title>
+</head>
+<body>
+    <h2>NCC Cadet Leaderboard</h2>
+
+    {% if board %}
+        <table border="1">
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Institution</th>
+                <th>Quiz-wise Marks</th>
+                <th>Total</th>
+            </tr>
+
+            {% for cadet in board %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ cadet.name }}</td>
+                <td>{{ cadet.college }}</td>
+                <td>
+                    {% for quiz, mark in cadet.scores.items() %}
+                        {{ quiz }}: {{ mark }}<br>
+                    {% endfor %}
+                </td>
+                <td>{{ cadet.total }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No cadets available.</p>
+    {% endif %}
+
+    <br>
+    <a href="/">Home</a>
+</body>
+</html>
